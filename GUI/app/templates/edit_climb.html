@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<form action="" method="post" novalidate enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <h2 class="climb-name">Edit climb</h2>
+  <p>
+      {{ form.name.label }}<br>
+      {{ form.name(size=32) }}<br>
+      {% for error in form.name.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+      {{ form.description.label }}<br>
+      {{ form.description(size=512) }}<br>
+      {% for error in form.description.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+    {{ form.grade.label }}<br>
+    {{ form.grade() }}
+    <span class="sublabel">Enter 0 if Non-Graded</span><br>
+    {% for error in form.grade.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  <p>
+
+      {{ form.attempt.label }}<br>
+      {{ form.attempt() }}<br>
+      {% for error in form.attempt.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+      {{ form.completed() }}
+      {{ form.completed.label }}
+      {% for error in form.completed.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+      {{ form.private() }} 
+      {{ form.private.label }}
+      {% for error in form.private.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <br>
+  <p>{{ form.submit() }}  {{ form.delete_screenshots() }}  {{ form.delete() }}</p>
+
+  <br>
+  <div class="edit-climb-container">
+    {% for screenshot in screenshots %}
+      <div class>
+        <img src="{{ url_for('serve_image', filename='climb%d/%d.jpg' % (screenshot.climb_id, screenshot.order)) }}" class="edit-climb-image" alt="...">
+        <input class="screenshot-checkbox" id="{{ screenshot.id }}" type="checkbox" name="{{ screenshot.id }}">
+      </div>
+    {% endfor %}
+  </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    $(document).ready(function () {
+      // When an image is clicked, toggle the checkbox status
+      $(".edit-climb-image").on("click", function () {
+        var checkbox = $(this).siblings(".screenshot-checkbox");
+        checkbox.prop("checked", !checkbox.prop("checked"));
+      });
+    });
+  </script>
+{% endblock %}
+
+

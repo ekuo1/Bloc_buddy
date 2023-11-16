@@ -1,0 +1,203 @@
+@charset "UTF-8";
+
+/* Navbar */
+
+nav{
+  background-color: white;
+}
+
+.navbar-brand{
+    font-size: xx-large;
+}
+
+main > .container  { 
+    max-width: 900px;
+    padding: 1%; 
+    margin-top: 100px;
+    background-color: #e3e3e3;
+    border-radius: 10px;
+} 
+
+@media screen and (max-width: 425px) {
+    main > .container  { margin-top: 130px; }
+    .navbar-brand {font-size: large;}
+}
+
+@media screen and (min-width: 900px){
+    .carousel{
+        max-width: 80%;
+        margin: auto;}
+}
+
+.container > h1{
+  background-color: #75499b;
+  color: white;
+  padding: 1%;
+}
+
+p {
+  margin-bottom: 0%;
+}
+
+a {
+  color: inherit; 
+}
+
+#scrollToTopBtn {
+  background-color: #75499b;
+  color: white;
+  display: none;
+}
+
+#scrollToTopBtn:hover {
+  background-color: #555;
+}
+
+/* Add the following class for fixed positioning */
+#scrollToTopBtn.fixed-bottom-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  z-index: 9999;
+  border-radius: 20px; /* Make the button circular */
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+/* Forms */
+
+.sublabel{
+  color: gray;
+  font-size: small;
+}
+
+textarea{
+  width: 50%;
+  resize: both;
+}
+
+/* Climbs */
+
+.climb-name {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 1%;
+}
+
+.edit-climb-container {
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.climb-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.edit-climb-image {
+  max-width: 90%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.climb-image {
+  width: 60%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 20px;
+  background-color: #202023;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #9a4b28; 
+}
+
+.climb-text {
+  flex: 1;
+  order: 2; /* default order for larger screens */
+  margin-top: 1%;
+  padding-left: 1%;
+}
+
+@media screen and (max-width: 767px) { /* max width for mobile devices */
+  .climb-image {
+    width: 100%;
+  }
+  
+  .climb-text {
+    flex: 1;
+    margin-left: 0;
+  }
+}
+
+body {
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.success {
+  border-color: #73499d;
+}
+
+/* Carousel */
+
+.carousel-item img {
+  display: block;
+  margin: 0 auto;
+  max-height: 800px;
+  object-fit: contain;
+  background-color: #202023;
+  border-radius: 20px;
+  max-width: 100%; /* Adjust this to control the aspect ratio */
+}
+
+.metrics {
+  border:1px solid #C0C0C0;
+  border-collapse:collapse;
+  padding:5px;
+}
+.metrics th {
+  border:1px solid #C0C0C0;
+  padding:5px;
+  background:#F0F0F0;
+}
+.metrics td {
+  border:1px solid #C0C0C0;
+  padding:5px;
+}
+
+
+/* Loading page */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-top: 5px solid #4CAF50;
+  border-right: 5px solid transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+    <h1>User: {{ user.username }}</h1>
+    <table>
+        <tr valign="top">
+            <td>
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                {% if user.last_seen %}<p>Last seen on: {{moment(user.last_seen).format('LLL')}}</p>{% endif %}
+                <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+                {% if user == current_user %}
+                <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+                {% elif not current_user.is_following(user) %}
+                <p>
+                    <form action="{{ url_for('follow', username=user.username) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        {{ form.submit(value='Follow') }}
+                    </form>
+                </p>
+                {% else %}
+                <p>
+                    <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        {{ form.submit(value='Unfollow') }}
+                    </form>
+                </p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <br>
+    <h2>{{title}}</h2>
+    {% for climb in climbs %}
+        {% include "_climb.html" %}
+        <br>
+    {% endfor %}
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            <li class="page-item{% if not prev_url %} disabled{% endif %}">
+                <a class="page-link" href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Newer climbs
+                </a>
+            </li>
+            <li class="page-item{% if not next_url %} disabled{% endif %}">
+                <a class="page-link" href="{{ next_url or '#' }}">
+                    Older climbs <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

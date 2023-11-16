@@ -1,0 +1,10 @@
+pose/mediapipe/screenshots/*.jpg
+pose/mediapipe/screenshots/smooth/*.jpg
+pose/mediapipe/screenshots/no_smooth/*.jpg
+pose/*.png
+*.pyc
+*.mp4
+*.avi
+*.h5
+*.zip
+*.bin

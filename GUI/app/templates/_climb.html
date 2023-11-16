@@ -1,0 +1,16 @@
+<div class="climb-container">
+    {% if climb.get_first_screenshot() != None %}
+    <img src="{{ url_for('serve_image', filename='climb%d/%d.jpg' % (climb.id, climb.get_first_screenshot().order)) }}" alt="Route Image" class="climb-image {{'success' if climb.completed }}">
+    {% else %}
+    <img src="{{url_for('static', filename='default.jpg')}}" alt="Route Image" class="climb-image">
+    {% endif %}
+    <div class="climb-text">
+        <a class="climb-name" href="{{url_for('climb', n=climb.id)}}">{{climb.name}}</a>
+        <p>{{moment(climb.timestamp).format('LLL')}}</p>
+        <p>{{climb.description}}</p>
+        <span>User: </span>
+        <a href="{{url_for('user', u=climb.climber.username)}}" >{{climb.climber.username}}</a>
+        <p>Colour: {{climb.colour}}</p>
+        <p>Grade: {% if climb.grade is none or climb.grade == 0 %}Ungraded{% else %}{{climb.grade}}{% endif %}</p>
+    </div>
+</div>

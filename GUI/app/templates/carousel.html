@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<div class="climb-container">
+    <div class="climb-text">
+        <div class="d-flex justify-content-between">
+          <h2 class="climb-name">{{climb.name}}</h2>
+          {% if climb.climber.username == current_user.username %} <a href="{{url_for('edit_climb', n=climb.id)}}">Edit</a> {% endif %}
+        </div>
+        <p>{{moment(climb.timestamp).format('LLL')}}</p>
+        <p>{{climb.description}}</p>
+        <span>User: </span>
+        <a href="{{url_for('user', u=climb.climber.username)}}" >{{climb.climber.username}}</a>
+        <p>Colour: {{climb.colour}}</p>
+        <p>Grade: {% if climb.grade == 0 or climb.grade is none %}Ungraded{% else %}{{climb.grade}}{% endif %}</p>
+        <p>{% if climb.private == true %}Private {% else %}Public {% endif %}Climb</p>
+
+    </div>
+</div>
+<br>
+
+<table class="metrics">
+	<thead>
+	<tr>
+		<th>Metrics</th>
+		<th><br></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>Attempt Number</td>
+		<td>{{climb.attempt}}</td>
+	</tr>
+	<tr>
+		<td>Percentage Climb Completed</td>
+		<td>{% if climb.completed %} 100% {% else %} {{climb.percent_completed|round(2)}}% {% endif %}</td>
+	</tr>
+	<tr>
+		<td>Total Time Taken</td>
+		<td>{% if climb.time_taken %} {{climb.time_taken|round(2)}} seconds {% endif %}</td>
+	</tr>
+	<tr>
+		<td>Average Time for each Move</td>
+		<td>{% if climb.av_time_bw_moves %} {{climb.av_time_bw_moves|round(2)}} seconds {% endif %}</td>
+	</tr>
+	<tbody>
+</table>
+
+<br>
+<div id="carouselExampleCaptions" class="carousel" data-bs-ride="carousel" data-bs-interval="false">
+    <div class="carousel-indicators">
+      {% for screenshot in screenshots %}
+        <button type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="{{ loop.index-1 }}"
+          {% if loop.index == 1 %}
+              class="active"
+              aria-current="true"
+          {% endif %}
+          aria-label="Slide {{ loop.index }}">
+        </button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+      {% for screenshot in screenshots %}
+        <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+          <img src="{{ url_for('serve_image', filename='climb%d/%d.jpg' % (screenshot.climb_id, screenshot.order)) }}" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock %}

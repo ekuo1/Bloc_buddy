@@ -1,0 +1,40 @@
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-md navbar-light fixed-top shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{url_for('index')}}">
+            <img src="{{url_for('static', filename='logo_transparent2.png')}}" alt="" height="60" width="80" class="d-inline-block" style="position: relative;top: -2px;">
+            Bloc Buddy
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{url_for('index')}}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('about')}}">About</a>
+                </li>
+                {% if current_user.is_anonymous %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{url_for('login')}}">Login</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('explore')}}">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('new_climb')}}">Add New Climb</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('user', u=current_user.username)}}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

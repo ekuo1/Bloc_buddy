@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>New Climb</h1>
+    <form action="" method="post" novalidate enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=512) }}<br>
+            {% for error in form.description.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.colour.label }}<br>
+            {{ form.colour() }} 
+            {% for error in form.colour.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.grade.label }}<br>
+            {{ form.grade() }} 
+            <span class="sublabel">Enter 0 if Non-Graded</span><br>
+            {% for error in form.grade.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+
+            {{ form.attempt.label }}<br>
+            {{ form.attempt() }}<br>
+            {% for error in form.attempt.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.completed() }}
+            {{ form.completed.label }}
+            {% for error in form.completed.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.private() }} 
+            {{ form.private.label }}
+            {% for error in form.private.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <br>
+        <p>
+            {{ form.video.label }}<br>
+            {{ form.video() }}<br>
+            {% for error in form.video.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <br>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

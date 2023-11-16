@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Processing New Climb !</h1>
+    <div class="loading">
+      <div class="spinner"></div>
+      <h2>Loading...</h2>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    $(document).ready(function() {
+        var filename = "{{ filename }}";
+        var climb_id = "{{ climb_id }}";
+        $.ajax({
+            url: '/process_climb',
+            data: { filename: filename, climb_id: climb_id }, 
+            success: function() {
+                $.ajax({
+                    url: '/delete_file', 
+                    data: { filename: filename },
+                    success: function(data) {
+                        console.log('File deleted:', data);
+                        window.location.href = '/index'; 
+                    },
+                    error: function(error) {
+                        console.error('Error deleting file:', error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+{% endblock %}
